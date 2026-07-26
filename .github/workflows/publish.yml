@@ -1,0 +1,28 @@
+name: Publish to Hex
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch: # Allows manual triggering from the GitHub UI
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Elixir
+        uses: erlef/setup-beam@v1
+        with:
+          elixir-version: '1.14.x' # Minimum version supported
+          otp-version: '26.x'      # A stable OTP version
+
+      - name: Install dependencies
+        run: mix deps.get
+
+      - name: Publish to Hex
+        env:
+          HEX_API_KEY: ${{ secrets.HEX_API_KEY }}
+        run: mix hex.publish --yes
