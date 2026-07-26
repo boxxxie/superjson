@@ -36,31 +36,42 @@ end
 
 ### Decoding (JS -> Elixir)
 
-You can pass a raw JSON string or a pre-parsed map (via `Jason`).
+Usually, you will receive a raw SuperJSON string from an API or webhook. You can decode it directly into native Elixir structs:
 
 ```elixir
-payload = %{
-  "json" => %{
-    "createdAt" => "2023-10-10T15:20:00Z",
-    "amount" => "9007199254740991",
-    "pattern" => "/abc/i"
+json_string = """
+{
+  "json": {
+    "createdAt": "2023-10-10T15:20:00Z",
+    "amount": "9007199254740991",
+    "pattern": "/abc/i"
   },
-  "meta" => %{
-    "values" => %{
-      "createdAt" => ["Date"],
-      "amount" => ["bigint"],
-      "pattern" => ["regexp"]
+  "meta": {
+    "values": {
+      "createdAt": ["Date"],
+      "amount": ["bigint"],
+      "pattern": ["regexp"]
     }
   }
 }
+"""
 
-{:ok, result} = SuperJSON.decode(payload)
+{:ok, result} = SuperJSON.decode(json_string)
 # Or raise on error:
-# result = SuperJSON.decode!(payload)
+# result = SuperJSON.decode!(json_string)
 
 # result["createdAt"] => ~U[2023-10-10 15:20:00Z]
 # result["amount"]    => 9007199254740991
 # result["pattern"]   => ~r/abc/i
+```
+
+If your HTTP client (like `Req` or `HTTPoison`) automatically parses JSON responses into Elixir maps using `Jason`, you can simply pass that pre-parsed map directly to `SuperJSON`:
+
+```elixir
+# Assume `response.body` was already parsed by your HTTP client:
+# response.body = %{"json" => ..., "meta" => ...}
+
+{:ok, result} = SuperJSON.decode(response.body)
 ```
 
 ### Encoding (Elixir -> JS)
