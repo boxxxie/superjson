@@ -73,17 +73,24 @@ defmodule SuperJSON do
 
       Regex ->
         opts =
-          struct.opts
-          |> Enum.map(fn
-            :caseless -> "i"
-            :multiline -> "m"
-            :dotall -> "s"
-            :extended -> "x"
-            :unicode -> "u"
-            _ -> ""
-          end)
-          |> Enum.sort()
-          |> Enum.join("")
+          if is_binary(struct.opts) do
+            struct.opts
+            |> String.graphemes()
+            |> Enum.sort()
+            |> Enum.join("")
+          else
+            struct.opts
+            |> Enum.map(fn
+              :caseless -> "i"
+              :multiline -> "m"
+              :dotall -> "s"
+              :extended -> "x"
+              :unicode -> "u"
+              _ -> ""
+            end)
+            |> Enum.sort()
+            |> Enum.join("")
+          end
 
         {"/#{struct.source}/#{opts}", ["regexp"]}
 
