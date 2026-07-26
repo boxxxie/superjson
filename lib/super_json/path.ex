@@ -38,8 +38,8 @@ defmodule SuperJSON.Path do
     do_parse(rest, segments, current <> ".")
   end
 
-  defp do_parse(<<"\\", rest::binary>>, segments, current) do
-    do_parse(rest, segments, current)
+  defp do_parse(<<"\\", _rest::binary>>, _segments, _current) do
+    raise "Invalid SuperJSON path"
   end
 
   defp do_parse(<<".", rest::binary>>, segments, current) do

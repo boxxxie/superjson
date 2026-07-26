@@ -37,6 +37,7 @@ end
 ### Decoding (JS -> Elixir)
 
 Usually, you will receive a raw SuperJSON string from an API or webhook. You can decode it directly into native Elixir structs:
+*(See [`test/super_json/readme_test.exs:L6-L29`](test/super_json/readme_test.exs#L6-L29) for the validation of this example)*
 
 ```elixir
 json_string = """
@@ -77,6 +78,7 @@ If your HTTP client (like `Req` or `HTTPoison`) automatically parses JSON respon
 ### Encoding (Elixir -> JS)
 
 Pass native Elixir structs, MapSets, and atoms, and get a SuperJSON payload ready to be sent to a JavaScript client.
+*(See [`test/super_json/readme_test.exs:L31-L55`](test/super_json/readme_test.exs#L31-L55) for the validation of this example)*
 
 ```elixir
 my_data = %{

@@ -271,8 +271,12 @@ defmodule SuperJSON do
   defp hydrate_referential_equalities(json, _), do: json
 
   defp hydrate_values(json, values) when is_map(values) do
-    Enum.reduce(values, json, fn {path_str, types_list}, acc ->
-      path = Path.parse(path_str)
+    sorted_paths =
+      values
+      |> Enum.map(fn {path_str, types} -> {Path.parse(path_str), types} end)
+      |> Enum.sort_by(fn {path, _} -> length(path) end, :desc)
+
+    Enum.reduce(sorted_paths, json, fn {path, types_list}, acc ->
       hydrate_value_at_path(acc, path, types_list)
     end)
   end
