@@ -71,7 +71,7 @@ Pass native Elixir structs, MapSets, and atoms, and get a SuperJSON payload read
 my_data = %{
   "date" => ~U[2026-01-01 12:00:00Z],
   "set" => MapSet.new([1, 2, :nan]),
-  "url" => URI.parse("https://github.com/boxxxie/superjson")
+  "url" => URI.parse("https://www.example.com")
 }
 
 encoded = SuperJSON.encode(my_data)
@@ -79,7 +79,7 @@ encoded = SuperJSON.encode(my_data)
 #   "json" => %{
 #     "date" => "2026-01-01T12:00:00Z",
 #     "set" => [1, 2, "NaN"],
-#     "url" => "https://github.com/boxxxie/superjson"
+#     "url" => "https://www.example.com"
 #   },
 #   "meta" => %{
 #     "values" => %{
