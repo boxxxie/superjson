@@ -4,7 +4,9 @@
 [![Documentation](https://img.shields.io/badge/hex-docs-blue.svg)](https://hexdocs.pm/superjson)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
-A high-fidelity **SuperJSON** decoder and encoder for Elixir. Seamlessly serialize and rehydrate JavaScript/TypeScript complex types (Dates, MapSets, Maps, BigInts, Regexps, URLs, Errors, and referential equalities) into native Elixir data structures. 
+A high-fidelity **SuperJSON** decoder and encoder for Elixir. This is a complete Elixir port of the original [TypeScript SuperJSON library](https://github.com/flightcontrolhq/superjson).
+
+Seamlessly serialize and rehydrate JavaScript/TypeScript complex types (Dates, MapSets, Maps, BigInts, Regexps, URLs, Errors, and referential equalities) into native Elixir data structures. 
 
 Perfect for communicating with JS/TS frameworks that use SuperJSON for payload serialization, such as **Trigger.dev**, **tRPC**, **Remix**, **Blitz.js**, or **Next.js**.
 
